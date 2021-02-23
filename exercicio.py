@@ -12,11 +12,10 @@ dataset = pd.read_csv(r'04_dados_exercicio.csv')  #raw
 features = dataset.iloc[:, :-1].values  #busca com indice i localization(iloc)
 print(features)
 classe = dataset.iloc[:, -1].values
-#Não consegui
-#if(features==0):
+
 imputer = SimpleImputer(missing_values=np.nan, strategy="mean")
 imputer.fit(features[:, 2:4])  #aqui escolhemos as colunas
-features[:, 2:4] = imputer.transform(features[:, 2:4])  #aqui tb
+features[:, 2:4] = imputer.transform(features[:, 2:4])
 columnTransformer = ColumnTransformer(transformers=[('encoder',
                                                      OneHotEncoder(), [1])],
                                       remainder='passthrough')
@@ -28,7 +27,6 @@ print(features)
 print('==========classe===========')
 print(classe)
 #85% treinamento
-
 features_treinamento, features_teste, classe_treinamento, classe_teste = train_test_split(
     features, classe, test_size=0.15, random_state=1)
 print('===========features_treinamento===========')
